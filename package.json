@@ -1,0 +1,64 @@
+{
+  "name": "n8n-nodes-binable",
+  "version": "0.1.0",
+  "description": "n8n community node for binable.app — waste collection schedules, upcoming-collection triggers (webhook + polling) and iCal feeds.",
+  "keywords": [
+    "n8n-community-node-package",
+    "n8n",
+    "binable",
+    "waste",
+    "garbage",
+    "abfall",
+    "muell",
+    "abfuhrtermine",
+    "recycling"
+  ],
+  "license": "MIT",
+  "homepage": "https://binable.app/integration/n8n",
+  "author": {
+    "name": "Tim Lochmüller",
+    "email": "tim@binable.app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/binable/n8n-nodes-binable.git"
+  },
+  "engines": {
+    "node": ">=18.10"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && gulp build:icons",
+    "dev": "tsc --watch",
+    "format": "prettier nodes credentials --write",
+    "lint": "eslint nodes credentials",
+    "lintfix": "eslint nodes credentials --fix",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "dist"
+  ],
+  "n8n": {
+    "n8nNodesApiVersion": 1,
+    "credentials": [
+      "dist/credentials/BinableApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Binable/Binable.node.js",
+      "dist/nodes/Binable/BinableTrigger.node.js",
+      "dist/nodes/Binable/BinablePollingTrigger.node.js"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-n8n-nodes-base": "^1.16.3",
+    "gulp": "^5.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
+}

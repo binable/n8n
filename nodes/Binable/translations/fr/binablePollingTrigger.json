@@ -1,0 +1,54 @@
+{
+	"header": {
+		"displayName": "Binable Polling Trigger",
+		"description": "Interroge binable selon un calendrier et se déclenche lorsqu’une collecte entre dans la fenêtre de délai"
+	},
+	"nodeView": {
+		"notice": {
+			"displayName": "Les dates de collecte sont à la journée. Un délai inférieur à un jour n’influence que le cycle d’interrogation qui émet l’événement — le rappel porte toujours sur une journée entière."
+		},
+		"street": {
+			"displayName": "Rue",
+			"description": "Nom de la rue de l’adresse à consulter",
+			"placeholder": "Rue Exemple"
+		},
+		"houseNumber": {
+			"displayName": "Numéro",
+			"description": "Numéro de rue (peut contenir une lettre, p. ex. « 1a »)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Code postal",
+			"description": "Code postal de l’adresse",
+			"placeholder": "12345"
+		},
+		"city": {
+			"displayName": "Ville",
+			"description": "Ville de l’adresse",
+			"placeholder": "Villexemple"
+		},
+		"country": {
+			"displayName": "Pays",
+			"description": "Code pays ISO 3166-1 alpha-2 (p. ex. DE, AT, NL)"
+		},
+		"leadValue": {
+			"displayName": "Délai d’anticipation",
+			"description": "Se déclencher lorsqu’une collecte est au plus à cette échéance dans le futur"
+		},
+		"leadUnit": {
+			"displayName": "Unité du délai",
+			"options": {
+				"days": {
+					"displayName": "Jours"
+				},
+				"hours": {
+					"displayName": "Heures"
+				}
+			}
+		},
+		"fractions": {
+			"displayName": "Noms ou ID des fractions",
+			"description": "Ne déclencher que pour ces types de déchets. Laisser vide pour déclencher à chaque collecte. Les options sont chargées en direct pour l’adresse saisie."
+		}
+	}
+}

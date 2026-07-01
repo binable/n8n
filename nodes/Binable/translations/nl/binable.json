@@ -1,0 +1,96 @@
+{
+	"header": {
+		"displayName": "Binable",
+		"description": "Ophaaldata van afval opvragen via binable.app"
+	},
+	"nodeView": {
+		"resource": {
+			"displayName": "Resource",
+			"options": {
+				"collection": {
+					"displayName": "Ophaling"
+				}
+			}
+		},
+		"operation": {
+			"displayName": "Bewerking",
+			"options": {
+				"getByDate": {
+					"displayName": "Ophalingen op datum",
+					"description": "Alles teruggeven wat op een specifieke dag wordt opgehaald"
+				},
+				"getIcalFeed": {
+					"displayName": "iCal-feed ophalen",
+					"description": "De abonneerbare agenda-feed-URL teruggeven (optioneel de ICS-inhoud)"
+				},
+				"getNext": {
+					"displayName": "Volgende ophalingen",
+					"description": "De volgende N aanstaande ophalingen over alle (of geselecteerde) fracties"
+				},
+				"rawFetch": {
+					"displayName": "Ruwe data (Fetch)",
+					"description": "De volledige, onbewerkte /api/fetch-respons teruggeven"
+				},
+				"getSchedule": {
+					"displayName": "Schema (datumbereik)",
+					"description": "Elke ophaling tussen een begin- en einddatum teruggeven"
+				},
+				"listWasteTypes": {
+					"displayName": "Afvalsoorten opsommen",
+					"description": "De fracties opsommen die op dit adres bestaan, met volgende datum en aantal"
+				}
+			}
+		},
+		"street": {
+			"displayName": "Straat",
+			"description": "Straatnaam van het op te vragen adres",
+			"placeholder": "Voorbeeldstraat"
+		},
+		"houseNumber": {
+			"displayName": "Huisnummer",
+			"description": "Huisnummer (mag een letter bevatten, bijv. „1a”)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Postcode",
+			"description": "Postcode van het adres",
+			"placeholder": "1234 AB"
+		},
+		"city": {
+			"displayName": "Plaats",
+			"description": "Plaats van het adres",
+			"placeholder": "Voorbeeldstad"
+		},
+		"country": {
+			"displayName": "Land",
+			"description": "ISO 3166-1 alpha-2 landcode (bijv. DE, AT, NL)"
+		},
+		"fractions": {
+			"displayName": "Fractienamen of ID's",
+			"description": "Beperk het resultaat tot deze afvalsoorten. Leeg laten voor alle. Opties worden live geladen voor het ingevoerde adres."
+		},
+		"limit": {
+			"displayName": "Limiet",
+			"description": "Maximaal aantal terug te geven resultaten"
+		},
+		"from": {
+			"displayName": "Vanaf datum",
+			"description": "Begin van het bereik (inclusief). Leeg laten om vandaag te beginnen.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"to": {
+			"displayName": "Tot datum",
+			"description": "Einde van het bereik (inclusief). Leeg laten voor geen bovengrens.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"date": {
+			"displayName": "Datum",
+			"description": "De op te vragen dag. Leeg laten voor vandaag.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"downloadContent": {
+			"displayName": "ICS-inhoud downloaden",
+			"description": "Ook de inhoud van het ICS-bestand ophalen en teruggeven. Uit: alleen de feed-URL wordt teruggegeven."
+		}
+	}
+}

@@ -1,0 +1,51 @@
+{
+	"header": {
+		"displayName": "Binable Trigger",
+		"description": "Start de workflow wanneer een afvalophaling eraan komt (push-webhook)"
+	},
+	"nodeView": {
+		"notice": {
+			"displayName": "binable stuurt eenmaal per dag (rond 18:00 uur servertijd) een melding wanneer een ophaling over het ingestelde aantal dagen plaatsvindt. Doorlooptijden korter dan een dag ondersteunt de webhook niet — gebruik daarvoor de polling-trigger."
+		},
+		"street": {
+			"displayName": "Straat",
+			"description": "Straatnaam van het op te vragen adres",
+			"placeholder": "Voorbeeldstraat"
+		},
+		"houseNumber": {
+			"displayName": "Huisnummer",
+			"description": "Huisnummer (mag een letter bevatten, bijv. „1a”)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Postcode",
+			"description": "Postcode van het adres",
+			"placeholder": "1234 AB"
+		},
+		"city": {
+			"displayName": "Plaats",
+			"description": "Plaats van het adres",
+			"placeholder": "Voorbeeldstad"
+		},
+		"country": {
+			"displayName": "Land",
+			"description": "ISO 3166-1 alpha-2 landcode (bijv. DE, AT, NL)"
+		},
+		"daysBeforeCollection": {
+			"displayName": "Dagen vóór ophaling",
+			"description": "Hoeveel dagen vóór een ophaling de webhook afgaat (1–7)"
+		},
+		"fractions": {
+			"displayName": "Fractienamen of ID's",
+			"description": "Alleen voor deze afvalsoorten activeren. Leeg laten om bij elke ophaling te activeren. Opties worden live geladen voor het ingevoerde adres."
+		},
+		"verifySignature": {
+			"displayName": "Handtekening verifiëren",
+			"description": "De X-Muell-Signature HMAC-header controleren tegen het opgeslagen webhook-secret en vervalste verzoeken weigeren"
+		},
+		"splitCollections": {
+			"displayName": "Ophalingen splitsen",
+			"description": "Eén item per fractie uitgeven in plaats van één item met de volledige payload"
+		}
+	}
+}

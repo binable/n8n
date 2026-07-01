@@ -1,0 +1,54 @@
+{
+	"header": {
+		"displayName": "Binable Polling Trigger",
+		"description": "Vraagt binable volgens een schema op en activeert wanneer een ophaling binnen het doorlooptijd-venster valt"
+	},
+	"nodeView": {
+		"notice": {
+			"displayName": "Ophaaldata zijn per dag. Een doorlooptijd korter dan een dag beïnvloedt alleen welke polling-ronde het event uitgeeft — de herinnering betreft nog steeds een hele dag."
+		},
+		"street": {
+			"displayName": "Straat",
+			"description": "Straatnaam van het op te vragen adres",
+			"placeholder": "Voorbeeldstraat"
+		},
+		"houseNumber": {
+			"displayName": "Huisnummer",
+			"description": "Huisnummer (mag een letter bevatten, bijv. „1a”)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Postcode",
+			"description": "Postcode van het adres",
+			"placeholder": "1234 AB"
+		},
+		"city": {
+			"displayName": "Plaats",
+			"description": "Plaats van het adres",
+			"placeholder": "Voorbeeldstad"
+		},
+		"country": {
+			"displayName": "Land",
+			"description": "ISO 3166-1 alpha-2 landcode (bijv. DE, AT, NL)"
+		},
+		"leadValue": {
+			"displayName": "Doorlooptijd",
+			"description": "Activeren wanneer een ophaling hoogstens zo ver in de toekomst ligt"
+		},
+		"leadUnit": {
+			"displayName": "Eenheid doorlooptijd",
+			"options": {
+				"days": {
+					"displayName": "Dagen"
+				},
+				"hours": {
+					"displayName": "Uren"
+				}
+			}
+		},
+		"fractions": {
+			"displayName": "Fractienamen of ID's",
+			"description": "Alleen voor deze afvalsoorten activeren. Leeg laten om bij elke ophaling te activeren. Opties worden live geladen voor het ingevoerde adres."
+		}
+	}
+}

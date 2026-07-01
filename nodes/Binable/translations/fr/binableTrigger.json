@@ -1,0 +1,51 @@
+{
+	"header": {
+		"displayName": "Binable Trigger",
+		"description": "Démarre le workflow lorsqu’une collecte de déchets approche (webhook push)"
+	},
+	"nodeView": {
+		"notice": {
+			"displayName": "binable envoie une notification une fois par jour (vers 18 h 00, heure du serveur) lorsqu’une collecte a lieu dans le nombre de jours configuré. Les délais inférieurs à un jour ne sont pas pris en charge par le webhook — utilisez le déclencheur par interrogation (polling) pour cela."
+		},
+		"street": {
+			"displayName": "Rue",
+			"description": "Nom de la rue de l’adresse à consulter",
+			"placeholder": "Rue Exemple"
+		},
+		"houseNumber": {
+			"displayName": "Numéro",
+			"description": "Numéro de rue (peut contenir une lettre, p. ex. « 1a »)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Code postal",
+			"description": "Code postal de l’adresse",
+			"placeholder": "12345"
+		},
+		"city": {
+			"displayName": "Ville",
+			"description": "Ville de l’adresse",
+			"placeholder": "Villexemple"
+		},
+		"country": {
+			"displayName": "Pays",
+			"description": "Code pays ISO 3166-1 alpha-2 (p. ex. DE, AT, NL)"
+		},
+		"daysBeforeCollection": {
+			"displayName": "Jours avant la collecte",
+			"description": "Combien de jours avant une collecte le webhook se déclenche (1–7)"
+		},
+		"fractions": {
+			"displayName": "Noms ou ID des fractions",
+			"description": "Ne déclencher que pour ces types de déchets. Laisser vide pour déclencher à chaque collecte. Les options sont chargées en direct pour l’adresse saisie."
+		},
+		"verifySignature": {
+			"displayName": "Vérifier la signature",
+			"description": "Vérifier l’en-tête HMAC X-Muell-Signature par rapport au secret du webhook stocké et rejeter les requêtes falsifiées"
+		},
+		"splitCollections": {
+			"displayName": "Séparer les collectes",
+			"description": "Émettre un élément par fraction au lieu d’un seul élément contenant toute la charge utile"
+		}
+	}
+}

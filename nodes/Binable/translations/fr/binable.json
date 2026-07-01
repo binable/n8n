@@ -1,0 +1,96 @@
+{
+	"header": {
+		"displayName": "Binable",
+		"description": "Consulter les dates de collecte des déchets via binable.app"
+	},
+	"nodeView": {
+		"resource": {
+			"displayName": "Ressource",
+			"options": {
+				"collection": {
+					"displayName": "Collecte"
+				}
+			}
+		},
+		"operation": {
+			"displayName": "Opération",
+			"options": {
+				"getByDate": {
+					"displayName": "Collectes par date",
+					"description": "Renvoyer tout ce qui est collecté un jour précis"
+				},
+				"getIcalFeed": {
+					"displayName": "Obtenir le flux iCal",
+					"description": "Renvoyer l’URL du flux de calendrier à abonner (et éventuellement le contenu ICS)"
+				},
+				"getNext": {
+					"displayName": "Prochaines collectes",
+					"description": "Les N prochaines collectes à venir, toutes fractions (ou celles sélectionnées)"
+				},
+				"rawFetch": {
+					"displayName": "Données brutes (Fetch)",
+					"description": "Renvoyer la réponse /api/fetch complète et non traitée"
+				},
+				"getSchedule": {
+					"displayName": "Calendrier (plage de dates)",
+					"description": "Renvoyer chaque collecte entre une date de début et de fin"
+				},
+				"listWasteTypes": {
+					"displayName": "Lister les types de déchets",
+					"description": "Lister les fractions existant à cette adresse, avec la prochaine date et le nombre"
+				}
+			}
+		},
+		"street": {
+			"displayName": "Rue",
+			"description": "Nom de la rue de l’adresse à consulter",
+			"placeholder": "Rue Exemple"
+		},
+		"houseNumber": {
+			"displayName": "Numéro",
+			"description": "Numéro de rue (peut contenir une lettre, p. ex. « 1a »)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Code postal",
+			"description": "Code postal de l’adresse",
+			"placeholder": "12345"
+		},
+		"city": {
+			"displayName": "Ville",
+			"description": "Ville de l’adresse",
+			"placeholder": "Villexemple"
+		},
+		"country": {
+			"displayName": "Pays",
+			"description": "Code pays ISO 3166-1 alpha-2 (p. ex. DE, AT, NL)"
+		},
+		"fractions": {
+			"displayName": "Noms ou ID des fractions",
+			"description": "Limiter le résultat à ces types de déchets. Laisser vide pour tous. Les options sont chargées en direct pour l’adresse saisie."
+		},
+		"limit": {
+			"displayName": "Limite",
+			"description": "Nombre maximal de résultats à renvoyer"
+		},
+		"from": {
+			"displayName": "Date de début",
+			"description": "Début de la plage (inclus). Laisser vide pour commencer aujourd’hui.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"to": {
+			"displayName": "Date de fin",
+			"description": "Fin de la plage (inclus). Laisser vide pour aucune limite supérieure.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"date": {
+			"displayName": "Date",
+			"description": "Le jour à consulter. Laisser vide pour aujourd’hui.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"downloadContent": {
+			"displayName": "Télécharger le contenu ICS",
+			"description": "Récupérer et renvoyer aussi le contenu du fichier ICS. Désactivé : seule l’URL du flux est renvoyée."
+		}
+	}
+}

@@ -1,0 +1,96 @@
+{
+	"header": {
+		"displayName": "Binable",
+		"description": "Müllabfuhrtermine von binable.app abfragen"
+	},
+	"nodeView": {
+		"resource": {
+			"displayName": "Ressource",
+			"options": {
+				"collection": {
+					"displayName": "Abholung"
+				}
+			}
+		},
+		"operation": {
+			"displayName": "Operation",
+			"options": {
+				"getByDate": {
+					"displayName": "Abholungen nach Datum",
+					"description": "Alles zurückgeben, was an einem bestimmten Tag abgeholt wird"
+				},
+				"getIcalFeed": {
+					"displayName": "iCal-Feed abrufen",
+					"description": "Abonnierbare Kalender-Feed-URL zurückgeben (optional den ICS-Inhalt)"
+				},
+				"getNext": {
+					"displayName": "Nächste Abholungen",
+					"description": "Die nächsten N anstehenden Abholungen über alle (oder ausgewählte) Fraktionen"
+				},
+				"rawFetch": {
+					"displayName": "Rohdaten (Fetch)",
+					"description": "Die vollständige, unverarbeitete /api/fetch-Antwort zurückgeben"
+				},
+				"getSchedule": {
+					"displayName": "Zeitplan (Datumsbereich)",
+					"description": "Jede Abholung zwischen Start- und Enddatum zurückgeben"
+				},
+				"listWasteTypes": {
+					"displayName": "Abfallarten auflisten",
+					"description": "Die an dieser Adresse existierenden Fraktionen mit nächstem Termin und Anzahl auflisten"
+				}
+			}
+		},
+		"street": {
+			"displayName": "Straße",
+			"description": "Straßenname der abzufragenden Adresse",
+			"placeholder": "Musterstraße"
+		},
+		"houseNumber": {
+			"displayName": "Hausnummer",
+			"description": "Hausnummer (ggf. mit Buchstabe, z. B. „1a“)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Postleitzahl",
+			"description": "Postleitzahl der Adresse",
+			"placeholder": "12345"
+		},
+		"city": {
+			"displayName": "Stadt",
+			"description": "Stadt der Adresse",
+			"placeholder": "Musterstadt"
+		},
+		"country": {
+			"displayName": "Land",
+			"description": "ISO 3166-1 alpha-2 Ländercode (z. B. DE, AT, NL)"
+		},
+		"fractions": {
+			"displayName": "Fraktionsnamen oder IDs",
+			"description": "Ergebnis auf diese Abfallarten beschränken. Leer lassen für alle. Optionen werden live für die eingegebene Adresse geladen."
+		},
+		"limit": {
+			"displayName": "Limit",
+			"description": "Maximale Anzahl zurückzugebender Ergebnisse"
+		},
+		"from": {
+			"displayName": "Von-Datum",
+			"description": "Beginn des Bereichs (inklusive). Leer lassen, um ab heute zu starten.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"to": {
+			"displayName": "Bis-Datum",
+			"description": "Ende des Bereichs (inklusive). Leer lassen für keine Obergrenze.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"date": {
+			"displayName": "Datum",
+			"description": "Der abzufragende Tag. Leer lassen für heute.",
+			"placeholder": "YYYY-MM-DD"
+		},
+		"downloadContent": {
+			"displayName": "ICS-Inhalt herunterladen",
+			"description": "Zusätzlich den ICS-Dateiinhalt abrufen und zurückgeben. Aus: nur die Feed-URL wird zurückgegeben."
+		}
+	}
+}

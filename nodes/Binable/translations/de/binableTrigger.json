@@ -1,0 +1,51 @@
+{
+	"header": {
+		"displayName": "Binable Trigger",
+		"description": "Startet den Workflow, wenn eine Müllabholung ansteht (Push-Webhook)"
+	},
+	"nodeView": {
+		"notice": {
+			"displayName": "binable sendet einmal täglich (gegen 18:00 Uhr Serverzeit) eine Benachrichtigung, wenn eine Abholung in der konfigurierten Anzahl von Tagen ansteht. Vorlaufzeiten unter einem Tag unterstützt der Webhook nicht — nutze dafür den Polling-Trigger."
+		},
+		"street": {
+			"displayName": "Straße",
+			"description": "Straßenname der abzufragenden Adresse",
+			"placeholder": "Musterstraße"
+		},
+		"houseNumber": {
+			"displayName": "Hausnummer",
+			"description": "Hausnummer (ggf. mit Buchstabe, z. B. „1a“)",
+			"placeholder": "1a"
+		},
+		"zip": {
+			"displayName": "Postleitzahl",
+			"description": "Postleitzahl der Adresse",
+			"placeholder": "12345"
+		},
+		"city": {
+			"displayName": "Stadt",
+			"description": "Stadt der Adresse",
+			"placeholder": "Musterstadt"
+		},
+		"country": {
+			"displayName": "Land",
+			"description": "ISO 3166-1 alpha-2 Ländercode (z. B. DE, AT, NL)"
+		},
+		"daysBeforeCollection": {
+			"displayName": "Tage vor Abholung",
+			"description": "Wie viele Tage vor einer Abholung der Webhook auslöst (1–7)"
+		},
+		"fractions": {
+			"displayName": "Fraktionsnamen oder IDs",
+			"description": "Nur für diese Abfallarten auslösen. Leer lassen, um für jede Abholung auszulösen. Optionen werden live für die eingegebene Adresse geladen."
+		},
+		"verifySignature": {
+			"displayName": "Signatur verifizieren",
+			"description": "Den X-Muell-Signature-HMAC-Header gegen das gespeicherte Webhook-Secret prüfen und gefälschte Anfragen ablehnen"
+		},
+		"splitCollections": {
+			"displayName": "Abholungen aufteilen",
+			"description": "Ein Item pro Fraktion ausgeben statt eines einzelnen Items mit dem gesamten Payload"
+		}
+	}
+}
