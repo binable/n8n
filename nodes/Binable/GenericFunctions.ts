@@ -128,16 +128,31 @@ export interface ICollectionEvent extends IDataObject {
 }
 
 type BinableContext =
-	| IExecuteFunctions
-	| ILoadOptionsFunctions
-	| IPollFunctions
-	| IHookFunctions
-	| IWebhookFunctions;
+	IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions | IHookFunctions | IWebhookFunctions;
+
+/**
+ * Reads the (optional) binable API key from the `binableApi` credential.
+ * Returns `undefined` when no credential is configured — read/poll operations
+ * are allowed to run anonymously. Kept separate from {@link binableApiRequest}
+ * so the request function never mixes credential retrieval with a raw
+ * `httpRequest` call (see the `no-http-request-with-manual-auth` lint rule).
+ */
+async function hasBinableCredential(this: BinableContext): Promise<boolean> {
+	try {
+		const credentials = await this.getCredentials('binableApi');
+		return ((credentials?.apiKey as string) ?? '').trim() !== '';
+	} catch {
+		// No credential configured — fine for anonymous read/poll requests.
+		return false;
+	}
+}
 
 /**
  * Performs an authenticated (or anonymous) request against the binable API.
  * The `binableApi` credential is optional on read/poll nodes: if it is present
- * the API key is sent as a Bearer token, otherwise the request is anonymous.
+ * n8n injects the "Authorization: ApiKey <key>" header via the credential's
+ * `authenticate` block (using `httpRequestWithAuthentication`), otherwise the
+ * request is sent anonymously.
  * Pass `requireAuth = true` (webhook create/delete) to fail fast when missing.
  */
 export async function binableApiRequest(
@@ -164,15 +179,9 @@ export async function binableApiRequest(
 		options.qs = qs;
 	}
 
-	let apiKey = '';
-	try {
-		const credentials = await this.getCredentials('binableApi');
-		apiKey = ((credentials?.apiKey as string) ?? '').trim();
-	} catch {
-		// No credential configured — fine for anonymous read/poll requests.
-	}
+	const authenticated = await hasBinableCredential.call(this);
 
-	if (apiKey === '' && requireAuth) {
+	if (!authenticated && requireAuth) {
 		throw new NodeApiError(this.getNode(), {
 			message: 'A Binable API credential is required for this operation.',
 			description:
@@ -180,11 +189,18 @@ export async function binableApiRequest(
 		});
 	}
 
-	if (apiKey !== '') {
-		(options.headers as IDataObject).Authorization = `Bearer ${apiKey}`;
-	}
-
 	try {
+		if (authenticated) {
+			// Delegate auth to n8n: the credential's `authenticate` block adds the
+			// "Authorization: ApiKey <key>" header, and future improvements like
+			// token refresh / audit logging apply automatically.
+			return (await this.helpers.httpRequestWithAuthentication.call(
+				this,
+				'binableApi',
+				options,
+			)) as IDataObject;
+		}
+		// Anonymous path: read/poll operations work without a key.
 		return (await this.helpers.httpRequest(options)) as IDataObject;
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
@@ -307,8 +323,7 @@ export function buildIcalFeedUrl(address: IBinableAddress): string {
 export async function getWasteTypeOptions(
 	this: ILoadOptionsFunctions,
 ): Promise<INodePropertyOptions[]> {
-	const read = (name: string): string =>
-		String(this.getCurrentNodeParameter(name) ?? '').trim();
+	const read = (name: string): string => String(this.getCurrentNodeParameter(name) ?? '').trim();
 
 	const address: IBinableAddress = {
 		street: read('street'),
@@ -325,7 +340,8 @@ export async function getWasteTypeOptions(
 			const options: INodePropertyOptions[] = [];
 			for (const key of Object.keys(typeMap)) {
 				const wasteType = result[key] as IWasteType | undefined;
-				const hasDates = Array.isArray(wasteType?.dates) && (wasteType!.dates as string[]).length > 0;
+				const hasDates =
+					Array.isArray(wasteType?.dates) && (wasteType!.dates as string[]).length > 0;
 				if (hasDates) {
 					options.push({ name: typeMap[key], value: typeMap[key] });
 				}

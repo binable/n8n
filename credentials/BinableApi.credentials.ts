@@ -1,5 +1,6 @@
 import type {
 	IAuthenticateGeneric,
+	Icon,
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
@@ -10,10 +11,9 @@ export class BinableApi implements ICredentialType {
 
 	displayName = 'Binable API';
 
-	// The `-miscased` rule only applies to nodes in the n8n main repo (where this
-	// is a doc slug). Community packages must use a full external URL, as enforced
-	// by the conflicting `-not-http-url` rule.
-	// eslint-disable-next-line n8n-nodes-base/cred-class-field-documentation-url-miscased
+	icon: Icon = { light: 'file:binable.svg', dark: 'file:binable.dark.svg' };
+
+	// Community packages must use a full external URL here.
 	documentationUrl = 'https://binable.app/integration/n8n';
 
 	properties: INodeProperties[] = [
@@ -29,12 +29,12 @@ export class BinableApi implements ICredentialType {
 		},
 	];
 
-	// binable authenticates via the standard "Authorization: Bearer <key>" header.
+	// binable authenticates via the "Authorization: ApiKey <key>" header.
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
 			headers: {
-				Authorization: '=Bearer {{$credentials.apiKey}}',
+				Authorization: '=ApiKey {{$credentials.apiKey}}',
 			},
 		},
 	};

@@ -6,7 +6,9 @@ import type {
 	INodePropertyOptions,
 	INodeType,
 	INodeTypeDescription,
+	JsonObject,
 } from 'n8n-workflow';
+import { NodeApiError, NodeConnectionTypes } from 'n8n-workflow';
 
 import {
 	ADDRESS_PROPERTIES,
@@ -25,7 +27,7 @@ export class Binable implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Binable',
 		name: 'binable',
-		icon: 'file:binable.svg',
+		icon: { light: 'file:binable.svg', dark: 'file:binable.dark.svg' },
 		group: ['transform'],
 		version: 1,
 		subtitle: '={{ $parameter["operation"] }}',
@@ -33,8 +35,9 @@ export class Binable implements INodeType {
 		defaults: {
 			name: 'Binable',
 		},
-		inputs: ['main'],
-		outputs: ['main'],
+		usableAsTool: true,
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'binableApi',
@@ -74,7 +77,8 @@ export class Binable implements INodeType {
 						name: 'Get Next Collections',
 						value: 'getNext',
 						action: 'Get the next upcoming collections',
-						description: 'Return the next N upcoming collections across all (or selected) fractions',
+						description:
+							'Return the next N upcoming collections across all (or selected) fractions',
 					},
 					{
 						name: 'Get Raw Data (Fetch)',
@@ -111,7 +115,8 @@ export class Binable implements INodeType {
 					loadOptionsDependsOn: ['street', 'houseNumber', 'zip', 'city', 'country'],
 				},
 				default: [],
-				description: 'Restrict the result to these waste types. Leave empty for all. Options are loaded live for the entered address. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'Restrict the result to these waste types. Leave empty for all. Options are loaded live for the entered address. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 				displayOptions: {
 					show: { operation: ['getNext', 'getSchedule', 'getByDate'] },
 				},
@@ -271,7 +276,7 @@ export class Binable implements INodeType {
 					});
 					continue;
 				}
-				throw error;
+				throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 			}
 		}
 

@@ -33,14 +33,13 @@ npm install n8n-nodes-binable
 Create a **Binable API** credential with your API key (free via e-mail registration at
 [binable.app](https://binable.app)).
 
-Authentication uses the standard bearer scheme:
+Authentication uses the `ApiKey` scheme:
 
 ```
-Authorization: Bearer <your-api-key>
+Authorization: ApiKey <your-api-key>
 ```
 
-> **Note:** Some of the binable docs mention `Authorization: API-KEY <key>`. The live API
-> only accepts the **`Bearer`** scheme — that is what this node uses.
+See the [binable API documentation](https://binable.app/de/integration/api) for details.
 
 The credential is:
 

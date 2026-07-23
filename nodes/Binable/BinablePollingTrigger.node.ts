@@ -6,6 +6,7 @@ import type {
 	INodeTypeDescription,
 	IPollFunctions,
 } from 'n8n-workflow';
+import { NodeConnectionTypes } from 'n8n-workflow';
 
 import {
 	ADDRESS_PROPERTIES,
@@ -22,18 +23,20 @@ export class BinablePollingTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Binable Polling Trigger',
 		name: 'binablePollingTrigger',
-		icon: 'file:binable.svg',
+		icon: { light: 'file:binable.svg', dark: 'file:binable.dark.svg' },
 		group: ['trigger'],
 		version: 1,
-		subtitle: '=Upcoming collection · {{$parameter["leadValue"]}} {{$parameter["leadUnit"]}} before',
+		subtitle:
+			'=Upcoming collection · {{$parameter["leadValue"]}} {{$parameter["leadUnit"]}} before',
 		description:
 			'Polls binable on a schedule and triggers when a collection enters the lead-time window',
 		defaults: {
 			name: 'Binable Polling Trigger',
 		},
+		usableAsTool: true,
 		polling: true,
 		inputs: [],
-		outputs: ['main'],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'binableApi',
@@ -84,7 +87,8 @@ export class BinablePollingTrigger implements INodeType {
 					loadOptionsDependsOn: ['street', 'houseNumber', 'zip', 'city', 'country'],
 				},
 				default: [],
-				description: 'Only trigger for these waste types. Leave empty for any collection. Options are loaded live for the entered address. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'Only trigger for these waste types. Leave empty for any collection. Options are loaded live for the entered address. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	};

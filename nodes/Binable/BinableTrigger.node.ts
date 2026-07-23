@@ -9,6 +9,7 @@ import type {
 	IWebhookFunctions,
 	IWebhookResponseData,
 } from 'n8n-workflow';
+import { NodeConnectionTypes } from 'n8n-workflow';
 
 import {
 	ADDRESS_PROPERTIES,
@@ -21,7 +22,7 @@ export class BinableTrigger implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'Binable Trigger',
 		name: 'binableTrigger',
-		icon: 'file:binable.svg',
+		icon: { light: 'file:binable.svg', dark: 'file:binable.dark.svg' },
 		group: ['trigger'],
 		version: 1,
 		subtitle: '=Upcoming collection · {{$parameter["daysBeforeCollection"]}}d before',
@@ -29,8 +30,9 @@ export class BinableTrigger implements INodeType {
 		defaults: {
 			name: 'Binable Trigger',
 		},
+		usableAsTool: true,
 		inputs: [],
-		outputs: ['main'],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'binableApi',
@@ -79,7 +81,8 @@ export class BinableTrigger implements INodeType {
 					loadOptionsDependsOn: ['street', 'houseNumber', 'zip', 'city', 'country'],
 				},
 				default: [],
-				description: 'Only trigger for these waste types. Leave empty to trigger for any collection. Options are loaded live for the entered address. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description:
+					'Only trigger for these waste types. Leave empty to trigger for any collection. Options are loaded live for the entered address. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 
 			// --- Options ---
@@ -172,9 +175,7 @@ export class BinableTrigger implements INodeType {
 			const req = this.getRequestObject();
 			const rawBody = (req as unknown as { rawBody?: Buffer | string }).rawBody;
 			const payload =
-				rawBody !== undefined && rawBody !== null
-					? rawBody.toString()
-					: JSON.stringify(body);
+				rawBody !== undefined && rawBody !== null ? rawBody.toString() : JSON.stringify(body);
 			const expected = 'sha256=' + createHmac('sha256', secret).update(payload).digest('hex');
 			const received = this.getHeaderData()['x-muell-signature'];
 			if (received !== expected) {
@@ -186,9 +187,7 @@ export class BinableTrigger implements INodeType {
 
 		// --- Fraction filter ---
 		const fractions = this.getNodeParameter('fractions', []) as string[];
-		let collections = Array.isArray(body.collections)
-			? (body.collections as IDataObject[])
-			: [];
+		let collections = Array.isArray(body.collections) ? (body.collections as IDataObject[]) : [];
 		if (fractions.length > 0) {
 			const allowed = new Set(fractions);
 			collections = collections.filter((collection) => allowed.has(collection.type as string));
@@ -202,7 +201,8 @@ export class BinableTrigger implements INodeType {
 		const splitCollections = this.getNodeParameter('splitCollections', false) as boolean;
 		let items: IDataObject[];
 		if (splitCollections) {
-			const { collections: _ignored, ...rest } = body;
+			const rest: IDataObject = { ...body };
+			delete rest.collections;
 			items = collections.map((collection) => ({ ...rest, collection }));
 		} else {
 			items = [{ ...body, collections }];
