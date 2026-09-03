@@ -1,0 +1,43 @@
+# Local test instance for the n8n-nodes-binable community node.
+#
+#   npm install && npm run build      # produces ./dist
+#   docker compose up                 # http://localhost:5678
+#
+# Login: test@example.com / TestNode123 (provisioned from the env vars below,
+# so the setup wizard never appears -- not even on a fresh volume).
+#
+# Keep `npm run build:watch` running in a second shell: N8N_DEV_RELOAD makes
+# n8n pick up rebuilt node files without a container restart.
+
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:latest
+    ports:
+      - '5678:5678'
+    environment:
+      - N8N_CUSTOM_EXTENSIONS=/custom-nodes
+      - N8N_DEV_RELOAD=true
+      - N8N_DIAGNOSTICS_ENABLED=false
+      - N8N_LOG_LEVEL=debug
+      # Owner account straight from env -- no setup wizard, deterministic
+      # credentials for automated tests. The hash is bcrypt; '$$' is how you
+      # escape a literal '$' in a compose file. Regenerate with:
+      #   docker compose exec n8n node -e \
+      #     'console.log(require("bcryptjs").hashSync("yourpass",10))'
+      - N8N_INSTANCE_OWNER_MANAGED_BY_ENV=true
+      - N8N_INSTANCE_OWNER_EMAIL=test@example.com
+      - N8N_INSTANCE_OWNER_PASSWORD_HASH=$$2a$$10$$zqxx5JHjLeD9.ZZ0kEejq.HP1fIUixcaXnxuDOGCL0LfWyNwxcoZ6
+      # Fixed secret + long-lived token: the browser session survives restarts,
+      # so you log in once and stay logged in.
+      - N8N_USER_MANAGEMENT_JWT_SECRET=local-dev-secret
+      - N8N_USER_MANAGEMENT_JWT_DURATION_HOURS=8760
+      - GENERIC_TIMEZONE=Europe/Berlin
+      - TZ=Europe/Berlin
+      # needed for the webhook trigger
+      - WEBHOOK_URL=https://website-do-not-exists.website-do-not-exists.com/
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./dist:/custom-nodes:ro
+
+volumes:
+  n8n_data:

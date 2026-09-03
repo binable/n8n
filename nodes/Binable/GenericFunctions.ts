@@ -227,8 +227,48 @@ export async function binableApiRequest(
 		// Anonymous path: read/poll operations work without a key.
 		return (await this.helpers.httpRequest(options)) as IDataObject;
 	} catch (error) {
+		logFailedRequest.call(this, error);
 		throw new NodeApiError(this.getNode(), error as JsonObject);
 	}
+}
+
+/** Shape of the AxiosError that n8n's request helpers let through unchanged. */
+interface IAxiosErrorLike {
+	config?: {
+		method?: string;
+		url?: string;
+		params?: unknown;
+		data?: unknown;
+		headers?: Record<string, unknown>;
+	};
+	response?: { status?: number; data?: unknown };
+}
+
+/**
+ * Logs the request n8n actually put on the wire when a call fails — the
+ * serialized body, the resolved query string and the final headers, straight
+ * out of the AxiosError. `NodeApiError` keeps none of that, so without this a
+ * 4xx from the API gives no clue about what was sent.
+ *
+ * Visible with `N8N_LOG_LEVEL=debug`. The credential header is redacted.
+ */
+function logFailedRequest(this: BinableContext, error: unknown): void {
+	const { config, response } = error as IAxiosErrorLike;
+	if (config === undefined) return;
+
+	const headers = { ...(config.headers ?? {}) };
+	if (headers.Authorization !== undefined) headers.Authorization = '[redacted]';
+
+	this.logger.debug('Binable API request failed', {
+		node: this.getNode().name,
+		method: config.method,
+		url: config.url,
+		query: config.params,
+		body: config.data,
+		headers,
+		responseStatus: response?.status,
+		responseBody: response?.data,
+	});
 }
 
 /** Fetches the full collection schedule for an address via POST /api/fetch. */
