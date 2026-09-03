@@ -1,9 +1,3 @@
-<!--
-SPDX-FileCopyrightText: 2026 Tim Lochmüller <tim@binable.app>
-
-SPDX-License-Identifier: MIT
--->
-
 MIT License
 
 Copyright (c) 2026 Tim Lochmüller

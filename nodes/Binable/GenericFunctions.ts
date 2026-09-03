@@ -32,9 +32,13 @@ export const WASTE_TYPE_KEYS = [
 ] as const;
 
 /**
- * Default German labels — used only as a fallback for the fraction dropdown
- * when no address is entered yet or the live lookup fails. At runtime the real,
- * provider-specific labels come from the response `typeMap`.
+ * Fallback fraction *values*. A selected fraction is matched against the
+ * provider label carried by every collection (`typeMap` in the API response,
+ * `collections[].type` in a webhook payload), so these must stay verbatim in
+ * the provider's own wording — they are data, not interface text. Used only
+ * when no address is entered yet or the live lookup fails; otherwise the real
+ * labels come straight from `typeMap`. See {@link WASTE_TYPE_DISPLAY_NAMES}
+ * for what the user actually reads in the dropdown.
  */
 export const DEFAULT_WASTE_TYPE_LABELS: Record<string, string> = {
 	residualWaste: 'Restmüll',
@@ -49,6 +53,26 @@ export const DEFAULT_WASTE_TYPE_LABELS: Record<string, string> = {
 	diaper: 'Windeln',
 	hedgeTreeTrimming: 'Heckenschnitt',
 	fleaMarket: 'Trödelmarkt',
+};
+
+/**
+ * English display names for the fallback fraction dropdown. The node interface
+ * is English-only, while the option *values* stay in the provider's wording
+ * (see {@link DEFAULT_WASTE_TYPE_LABELS}) so the filter keeps matching.
+ */
+export const WASTE_TYPE_DISPLAY_NAMES: Record<string, string> = {
+	residualWaste: 'Residual Waste',
+	residualWasteLessFrequent: 'Residual Waste (Longer Interval)',
+	residualWasteContainer: 'Residual Waste (Container)',
+	residualWasteContainerLessFrequent: 'Residual Waste (Container, Longer Interval)',
+	bio: 'Organic Waste',
+	paper: 'Paper',
+	reusableMaterials: 'Recyclables',
+	christmasTree: 'Christmas Trees',
+	toxic: 'Hazardous Waste',
+	diaper: 'Diapers',
+	hedgeTreeTrimming: 'Hedge and Tree Trimmings',
+	fleaMarket: 'Flea Market',
 };
 
 export interface IBinableAddress {
@@ -356,7 +380,7 @@ export async function getWasteTypeOptions(
 	}
 
 	return WASTE_TYPE_KEYS.map((key) => ({
-		name: DEFAULT_WASTE_TYPE_LABELS[key],
+		name: WASTE_TYPE_DISPLAY_NAMES[key],
 		value: DEFAULT_WASTE_TYPE_LABELS[key],
 	}));
 }

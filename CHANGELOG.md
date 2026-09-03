@@ -25,4 +25,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - declare `usableAsTool` on the action node (trigger nodes must not set it);
   - add light/dark themed icons to all nodes and the credential;
   - wrap re-thrown execute() errors in `NodeApiError`;
-  - route authenticated API calls through `httpRequestWithAuthentication`.
+  - route authenticated API calls through `httpRequestWithAuthentication`;
+  - surface (instead of swallow) non-404 failures when deleting a webhook
+    subscription on trigger deactivation.
+- Fraction dropdown fallback now shows English display names; the option values
+  stay in the provider's wording so the filter keeps matching.
+- Corrected `repository.url` to the actual public repository — npm requires an
+  exact match to generate a provenance statement.
+- README now links the English API documentation (the old `/api/doc` URL
+  returned HTTP 500).
+- Dropped the leading SPDX comment from `LICENSE.md` so GitHub detects MIT.

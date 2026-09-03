@@ -39,7 +39,7 @@ Authentication uses the `ApiKey` scheme:
 Authorization: ApiKey <your-api-key>
 ```
 
-See the [binable API documentation](https://binable.app/de/integration/api) for details.
+See the [binable API documentation](https://binable.app/en/integration/api) for details.
 
 The credential is:
 
@@ -126,7 +126,7 @@ copied into `dist/` by the build.
 - Single lookup endpoint `POST /api/fetch` returns ~one year of dates for 12 fixed fractions.
 - All range/next/by-date filtering happens client-side inside these nodes.
 - Addresses are always `street` / `houseNumber` / `zip` / `city` / `country` (there are no address IDs).
-- Full API reference: <https://binable.app/api/doc>
+- Full API reference: <https://binable.app/en/integration/api>
 
 ## Development
 
