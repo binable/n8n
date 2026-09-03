@@ -8,8 +8,9 @@ import type {
 	INodeTypeDescription,
 	IWebhookFunctions,
 	IWebhookResponseData,
+	JsonObject,
 } from 'n8n-workflow';
-import { NodeConnectionTypes } from 'n8n-workflow';
+import { NodeApiError, NodeConnectionTypes } from 'n8n-workflow';
 
 import {
 	ADDRESS_PROPERTIES,
@@ -30,7 +31,6 @@ export class BinableTrigger implements INodeType {
 		defaults: {
 			name: 'Binable Trigger',
 		},
-		usableAsTool: true,
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],
 		credentials: [
@@ -92,7 +92,7 @@ export class BinableTrigger implements INodeType {
 				type: 'boolean',
 				default: true,
 				description:
-					'Whether to verify the X-Muell-Signature HMAC header against the stored webhook secret and reject forged requests',
+					'Whether to verify the X-Binable-Signature HMAC header against the stored webhook secret and reject forged requests',
 			},
 			{
 				displayName: 'Split Collections',
@@ -153,8 +153,14 @@ export class BinableTrigger implements INodeType {
 							undefined,
 							true,
 						);
-					} catch {
-						// If the webhook is already gone on the server, treat as deleted.
+					} catch (error) {
+						// A 404 means binable already removed the subscription — that is the
+						// state we want, so continue and clear the local ids. Anything else
+						// (auth, network, 5xx) must surface so deactivation does not silently
+						// leave a live webhook pointing at this workflow.
+						if ((error as NodeApiError).httpCode !== '404') {
+							throw new NodeApiError(this.getNode(), error as JsonObject);
+						}
 					}
 					delete staticData.webhookId;
 					delete staticData.webhookSecret;
@@ -177,7 +183,7 @@ export class BinableTrigger implements INodeType {
 			const payload =
 				rawBody !== undefined && rawBody !== null ? rawBody.toString() : JSON.stringify(body);
 			const expected = 'sha256=' + createHmac('sha256', secret).update(payload).digest('hex');
-			const received = this.getHeaderData()['x-muell-signature'];
+			const received = this.getHeaderData()['x-binable-signature'];
 			if (received !== expected) {
 				const response = this.getResponseObject();
 				response.status(403).json({ message: 'Invalid signature' });

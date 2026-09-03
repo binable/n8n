@@ -76,7 +76,7 @@ API calls needed. binable notifies once a day (around **18:00 server time**) whe
 due in **1–7** days (`Days Before Collection`).
 
 The incoming payload is HMAC-SHA256 signed. With **Verify Signature** enabled (default), the node
-checks the `X-Muell-Signature` header against the webhook secret and rejects forged requests with
+checks the `X-Binable-Signature` header against the webhook secret and rejects forged requests with
 `403`.
 
 Payload:

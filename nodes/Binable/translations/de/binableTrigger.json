@@ -41,7 +41,7 @@
 		},
 		"verifySignature": {
 			"displayName": "Signatur verifizieren",
-			"description": "Den X-Muell-Signature-HMAC-Header gegen das gespeicherte Webhook-Secret prüfen und gefälschte Anfragen ablehnen"
+			"description": "Den X-Binable-Signature-HMAC-Header gegen das gespeicherte Webhook-Secret prüfen und gefälschte Anfragen ablehnen"
 		},
 		"splitCollections": {
 			"displayName": "Abholungen aufteilen",

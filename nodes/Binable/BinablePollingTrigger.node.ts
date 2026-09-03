@@ -33,7 +33,6 @@ export class BinablePollingTrigger implements INodeType {
 		defaults: {
 			name: 'Binable Polling Trigger',
 		},
-		usableAsTool: true,
 		polling: true,
 		inputs: [],
 		outputs: [NodeConnectionTypes.Main],

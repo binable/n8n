@@ -41,7 +41,7 @@
 		},
 		"verifySignature": {
 			"displayName": "Vérifier la signature",
-			"description": "Vérifier l’en-tête HMAC X-Muell-Signature par rapport au secret du webhook stocké et rejeter les requêtes falsifiées"
+			"description": "Vérifier l’en-tête HMAC X-Binable-Signature par rapport au secret du webhook stocké et rejeter les requêtes falsifiées"
 		},
 		"splitCollections": {
 			"displayName": "Séparer les collectes",

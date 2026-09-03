@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Resolved all `@n8n/community-nodes` strict-mode lint findings:
   - use `NodeConnectionTypes.Main` instead of `'main'` string literals;
-  - declare `usableAsTool` on every node;
+  - declare `usableAsTool` on the action node (trigger nodes must not set it);
   - add light/dark themed icons to all nodes and the credential;
   - wrap re-thrown execute() errors in `NodeApiError`;
   - route authenticated API calls through `httpRequestWithAuthentication`.
