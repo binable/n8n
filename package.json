@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-binable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "n8n community node for binable.app — waste collection schedules, upcoming-collection triggers (webhook + polling) and iCal feeds.",
   "keywords": [
     "n8n-community-node-package",
