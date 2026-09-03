@@ -7,7 +7,7 @@ SPDX-License-Identifier: MIT
 # n8n-nodes-binable
 
 An [n8n](https://n8n.io) community node for [binable.app](https://binable.app) — waste
-collection schedules for Germany, Austria and beyond. Get reminded before the bin goes
+collection schedules for Germany, Austria and many more. Get reminded before the bin goes
 out, export calendars, or build any automation on top of your collection dates.
 
 This package ships **three nodes** and **one credential**:
