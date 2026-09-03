@@ -27,6 +27,9 @@
 # Both options work with --provenance. Provenance is signed by GitHub's OIDC
 # infrastructure regardless of how npm authentication is handled.
 #
+# Note: Option A additionally requires npm >= 11.5.1, which is why this job
+# runs on Node 24 (see the setup step below). Option B works with any npm.
+#
 # ─── TAG CONVENTION ────────────────────────────────────────────────────────────
 #
 # This workflow triggers on tags matching "*.*.*" (e.g. 0.2.0).
@@ -63,12 +66,19 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
+      # Deliberately NOT `.nvmrc` (which pins 22 for `n8n-node dev`, because the
+      # n8n instance it downloads needs Node 22): Trusted Publishing over OIDC
+      # requires npm >= 11.5.1, and Node 22 ships npm 10.x for its whole
+      # lifetime — npm majors are not backported to old LTS lines. Node 24 (LTS
+      # Krypton) bundles npm 11.x, so no separate npm upgrade step is needed.
+      # This job only lints, builds and publishes; `tsc` emits per tsconfig.json
+      # regardless of the Node version running it, so the artifact is unaffected.
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version-file: '.nvmrc'
+          node-version: '24'
           cache: 'npm'
 
       - name: Install dependencies
