@@ -39,22 +39,12 @@ export class BinableApi implements ICredentialType {
 		},
 	};
 
-	// A valid key returns 200 for POST /api/fetch on a known-good address; an
-	// invalid key returns 401. (Anonymous requests also return 200, so the test
-	// only proves the key is *not rejected* — which is exactly what we want.)
+	// A valid key returns 200 for POST /api/me an invalid key returns 401.
 	test: ICredentialTestRequest = {
 		request: {
-			// @todo change to real endpoint incl. meta information
 			baseURL: 'https://binable.app',
-			url: '/api/fetch',
+			url: '/api/me',
 			method: 'POST',
-			body: {
-				street: 'Schürhornweg',
-				houseNumber: '1',
-				zip: '33649',
-				city: 'Bielefeld',
-				country: 'DE',
-			},
 		},
 	};
 }
