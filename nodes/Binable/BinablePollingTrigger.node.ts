@@ -46,7 +46,7 @@ export class BinablePollingTrigger implements INodeType {
 		properties: [
 			{
 				displayName:
-					'Collection dates are day-granular. A lead time below one day only affects which poll run emits the event — the reminder still refers to a whole day.',
+					'Collection dates are day-granular. A lead time below one day only affects which poll run emits the event — the reminder still refers to a whole day. Please keep polling high, if there are no credentials - twice a day.',
 				name: 'notice',
 				type: 'notice',
 				default: '',
