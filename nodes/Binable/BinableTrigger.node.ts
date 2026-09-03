@@ -125,6 +125,12 @@ export class BinableTrigger implements INodeType {
 				const address = getAddressParameters(this);
 				const daysBeforeCollection = this.getNodeParameter('daysBeforeCollection') as number;
 
+				this.logger.debug('Binable webhook registration', {
+					node: this.getNode().name,
+					method: 'POST',
+					content: { url: webhookUrl, daysBeforeCollection, ...address }
+				});
+
 				const response = await binableApiRequest.call(
 					this,
 					'POST',
@@ -145,6 +151,13 @@ export class BinableTrigger implements INodeType {
 				const webhookId = staticData.webhookId as string | undefined;
 				if (webhookId) {
 					try {
+
+						this.logger.debug('Binable webhook delete', {
+							node: this.getNode().name,
+							method: 'DELETE',
+							endpoint: `/api/webhook/${webhookId}`
+						});
+
 						await binableApiRequest.call(
 							this,
 							'DELETE',
