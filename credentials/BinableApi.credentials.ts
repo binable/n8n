@@ -25,7 +25,7 @@ export class BinableApi implements ICredentialType {
 			default: '',
 			required: true,
 			description:
-				'Your binable API key. Get one for free via e-mail registration at binable.app. Required to create/delete webhooks; optional (but recommended for higher rate limits) for read operations and polling.',
+				'Your binable API key. Get one for free via e-mail registration at binable.app. Required to create/delete webhooks; optional (but recommended for higher rate limits) for read operations.',
 		},
 	];
 

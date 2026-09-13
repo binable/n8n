@@ -5,7 +5,7 @@
 	},
 	"nodeView": {
 		"notice": {
-			"displayName": "binable stuurt eenmaal per dag (rond 18:00 uur servertijd) een melding wanneer een ophaling over het ingestelde aantal dagen plaatsvindt. Doorlooptijden korter dan een dag ondersteunt de webhook niet — gebruik daarvoor de polling-trigger."
+			"displayName": "binable stuurt eenmaal per dag (rond 18:00 uur servertijd) een melding wanneer een ophaling over het ingestelde aantal dagen plaatsvindt. Doorlooptijden zijn hele dagen; doorlooptijden korter dan een dag worden niet ondersteund."
 		},
 		"street": {
 			"displayName": "Straat",

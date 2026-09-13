@@ -5,7 +5,7 @@
 	},
 	"nodeView": {
 		"notice": {
-			"displayName": "binable sendet einmal täglich (gegen 18:00 Uhr Serverzeit) eine Benachrichtigung, wenn eine Abholung in der konfigurierten Anzahl von Tagen ansteht. Vorlaufzeiten unter einem Tag unterstützt der Webhook nicht — nutze dafür den Polling-Trigger."
+			"displayName": "binable sendet einmal täglich (gegen 18:00 Uhr Serverzeit) eine Benachrichtigung, wenn eine Abholung in der konfigurierten Anzahl von Tagen ansteht. Vorlaufzeiten werden in ganzen Tagen angegeben; Vorlaufzeiten unter einem Tag werden nicht unterstützt."
 		},
 		"street": {
 			"displayName": "Straße",

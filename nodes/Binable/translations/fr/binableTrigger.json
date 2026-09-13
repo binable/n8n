@@ -5,7 +5,7 @@
 	},
 	"nodeView": {
 		"notice": {
-			"displayName": "binable envoie une notification une fois par jour (vers 18 h 00, heure du serveur) lorsqu’une collecte a lieu dans le nombre de jours configuré. Les délais inférieurs à un jour ne sont pas pris en charge par le webhook — utilisez le déclencheur par interrogation (polling) pour cela."
+			"displayName": "binable envoie une notification une fois par jour (vers 18 h 00, heure du serveur) lorsqu’une collecte a lieu dans le nombre de jours configuré. Les délais s’expriment en jours entiers ; les délais inférieurs à un jour ne sont pas pris en charge."
 		},
 		"street": {
 			"displayName": "Rue",

@@ -10,13 +10,12 @@ An [n8n](https://n8n.io) community node for [binable.app](https://binable.app) �
 collection schedules for Germany, Austria and many more. Get reminded before the bin goes
 out, export calendars, or build any automation on top of your collection dates.
 
-This package ships **three nodes** and **one credential**:
+This package ships **two nodes** and **one credential**:
 
 | Node | Type | Purpose |
 |------|------|---------|
 | **Binable** | Action | Query collection schedules (next N, date range, by date, waste types, iCal feed, raw fetch) |
-| **Binable Trigger** | Webhook trigger | Fires via a native binable push webhook when a collection is coming up |
-| **Binable Polling Trigger** | Polling trigger | Polls on a schedule; flexible lead time, no public URL required |
+| **Binable Trigger** | Webhook trigger | Fires via a native binable push webhook when a collection is coming up. Free API Key is required! |
 
 ## Installation
 
@@ -44,8 +43,8 @@ See the [binable API documentation](https://binable.app/en/integration/api) for 
 The credential is:
 
 - **required** for the **Binable Trigger** (creating/deleting webhook subscriptions needs a key),
-- **optional** for the **Binable** action node and the **Binable Polling Trigger** — they work
-  anonymously, but a key raises your rate limit.
+- **optional** for the **Binable** action node — it works anonymously, but a key raises your
+  rate limit.
 
 ## Nodes
 
@@ -95,17 +94,7 @@ Enable **Split Collections** to emit one item per fraction instead of one item f
 payload.
 
 > Requires a publicly reachable n8n webhook URL. If your instance is not reachable from the
-> internet, use the **Binable Polling Trigger** instead.
-
-### Binable Polling Trigger
-
-Polls `/api/fetch` on the schedule you configure (Poll Times) and triggers when a collection
-enters the **Lead Time** window (days or hours). Each collection is emitted exactly once
-(deduplicated via the node's static data). Ideal for private/NAT'd instances or custom reminder
-times.
-
-> Collection dates are day-granular, so a sub-day lead time only influences *which* poll run emits
-> the event.
+> internet, combine the **Binable** action node with n8n's built-in **Schedule Trigger**.
 
 ## Localization
 

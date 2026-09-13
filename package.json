@@ -1,7 +1,7 @@
 {
   "name": "n8n-nodes-binable",
   "version": "0.2.0",
-  "description": "n8n community node for binable.app — waste collection schedules, upcoming-collection triggers (webhook + polling) and iCal feeds.",
+  "description": "n8n community node for binable.app — waste collection schedules, an upcoming-collection webhook trigger and iCal feeds.",
   "keywords": [
     "n8n-community-node-package",
     "n8n",
@@ -50,8 +50,7 @@
     ],
     "nodes": [
       "dist/nodes/Binable/Binable.node.js",
-      "dist/nodes/Binable/BinableTrigger.node.js",
-      "dist/nodes/Binable/BinablePollingTrigger.node.js"
+      "dist/nodes/Binable/BinableTrigger.node.js"
     ]
   },
   "devDependencies": {

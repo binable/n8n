@@ -7,7 +7,6 @@ import type {
 	ILoadOptionsFunctions,
 	INodeProperties,
 	INodePropertyOptions,
-	IPollFunctions,
 	IWebhookFunctions,
 	JsonObject,
 } from 'n8n-workflow';
@@ -152,12 +151,12 @@ export interface ICollectionEvent extends IDataObject {
 }
 
 type BinableContext =
-	IExecuteFunctions | ILoadOptionsFunctions | IPollFunctions | IHookFunctions | IWebhookFunctions;
+	IExecuteFunctions | ILoadOptionsFunctions | IHookFunctions | IWebhookFunctions;
 
 /**
  * Reads the (optional) binable API key from the `binableApi` credential.
- * Returns `undefined` when no credential is configured — read/poll operations
- * are allowed to run anonymously. Kept separate from {@link binableApiRequest}
+ * Returns `false` when no credential is configured — read operations are
+ * allowed to run anonymously. Kept separate from {@link binableApiRequest}
  * so the request function never mixes credential retrieval with a raw
  * `httpRequest` call (see the `no-http-request-with-manual-auth` lint rule).
  */
@@ -166,14 +165,14 @@ async function hasBinableCredential(this: BinableContext): Promise<boolean> {
 		const credentials = await this.getCredentials('binableApi');
 		return ((credentials?.apiKey as string) ?? '').trim() !== '';
 	} catch {
-		// No credential configured — fine for anonymous read/poll requests.
+		// No credential configured — fine for anonymous read requests.
 		return false;
 	}
 }
 
 /**
  * Performs an authenticated (or anonymous) request against the binable API.
- * The `binableApi` credential is optional on read/poll nodes: if it is present
+ * The `binableApi` credential is optional on read operations: if it is present
  * n8n injects the "Authorization: ApiKey <key>" header via the credential's
  * `authenticate` block (using `httpRequestWithAuthentication`), otherwise the
  * request is sent anonymously.
@@ -233,7 +232,7 @@ export async function binableApiRequest(
 				options,
 			)) as IDataObject;
 		}
-		// Anonymous path: read/poll operations work without a key.
+		// Anonymous path: read operations work without a key.
 		return (await this.helpers.httpRequest(options)) as IDataObject;
 	} catch (error) {
 		throw new NodeApiError(this.getNode(), error as JsonObject);
@@ -254,7 +253,7 @@ export function getAddressParameters(ctx: BinableContext, itemIndex?: number): I
 	const read = (name: string): string => {
 		const value =
 			itemIndex === undefined
-				? // Trigger/hook/webhook/poll contexts: no item index.
+				? // Trigger/hook/webhook contexts: no item index.
 					(ctx as ILoadOptionsFunctions).getNodeParameter(name, '')
 				: (ctx as IExecuteFunctions).getNodeParameter(name, itemIndex, '');
 		return String(value ?? '').trim();

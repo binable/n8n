@@ -51,7 +51,7 @@ export class BinableTrigger implements INodeType {
 		properties: [
 			{
 				displayName:
-					'binable pushes a notification once a day (around 18:00 server time) when a collection is due in the configured number of days. Sub-day lead times are not supported by the webhook — use the polling trigger for that.',
+					'binable pushes a notification once a day (around 18:00 server time) when a collection is due in the configured number of days. Lead times are whole days; sub-day lead times are not supported.',
 				name: 'notice',
 				type: 'notice',
 				default: '',
